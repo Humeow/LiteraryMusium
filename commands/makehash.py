@@ -1,5 +1,7 @@
 import hashlib
 
+hashmake_repeat = 2
+
 class hash_funcs:
     @staticmethod
     def hash_make(text, hash_count=hashmake_repeat):

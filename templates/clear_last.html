@@ -722,7 +722,7 @@
 														<div class="inner_box">
 							<div class="inner">
 															<div class="up_num_box">
-									<p class="up_num font_red" id="recommend_view_up_2053">0</p>
+									<p class="up_num font_red" id="recommend_view_up_{{now_writing_dict['id']}}">{{now_writing_dict['recommend']}}</p>
 									<p class="sup_num">
 										<spen class="writer_nikcon">
 	                						<img src="//nstatic.dcinside.com/dc/w/images/fix_nik.gif" alt="고정닉">
@@ -730,12 +730,20 @@
 										<span class="font_blue smallnum" id="recommend_view_up_fix_2053">0</span>
 									</p>
 								</div>
-								<button type="button" class="btn_recom_up" data-no="2053"><span class="blind">개념 추천</span><em class="sp_img icon_recom_up"></em></button>
+								<form id="writing_recommend" action="/recommend" method="post">
+									<input type="hidden" name="is_recommendation" value=1>
+									<input type="hidden" name="writing_id" value={{now_writing_dict['id']}}>
+									<button form="writing_recommend" type="submit" class="btn_recom_up" data-no="{{now_writing_dict['id']}}"><span class="blind">개념 추천</span><em class="sp_img icon_recom_up"></em></button>
+								</form>
 							</div>
-																					<div class="inner">
-															<button type="button" class="btn_recom_down" data-no="2053"><span class="blind">개념 비추천</span><em class="sp_img icon_recom_down"></em></button>
+							<div class="inner">
+								<form id="writing_unrecommend" action="/recommend" method="post">
+									<input type="hidden" name="is_recommendation" value=0>
+									<input type="hidden" name="writing_id" value={{now_writing_dict['id']}}>
+									<button form="writing_unrecommend" type="submit" class="btn_recom_down" data-no="{{now_writing_dict['id']}}"><span class="blind">개념 비추천</span><em class="sp_img icon_recom_down"></em></button>
+								</form>
 								<div class="down_num_box">
-									<p class="down_num" id="recommend_view_down_2053">0</p>
+									<p class="down_num" id="recommend_view_down_{{now_writing_dict['id']}}">{{now_writing_dict['unrecommend']}}</p>
 								</div>
 							</div>
 														</div><!-- 둥 -->
@@ -755,18 +763,21 @@
 			<div id="jquery_jplayer"></div>
 <div class="view_comment" id="focus_cmt">
 	<h2 class="blind">댓글 영역</h2>
-	<div id="comment_wrap_2053" class="comment_wrap" data-article-lv="10" data-sort-type="" data-comment-cnt="0" data-article-no="2053">
+
+
+	<!-- 댓글 나열 -->
+	<div id="comment_wrap_2140889" class="comment_wrap show" data-article-lv="10" data-sort-type="" data-comment-cnt="0" data-article-no="2140889">
 		<div class="comment_count">
 			<div class="fl num_box">
-				전체 댓글 <em class="font_red"><span id="comment_total_2053">0</span></em>개
+				전체 댓글 <em class="font_red"><span id="comment_total_2140889">30</span></em>개
 				<div class="select_box array_latest">
 					<select name="selCommentSort">
 						<option value="D">등록순</option>
 						<option value="N">최신순</option>
 						<option value="R">답글수</option>
 					</select>
-					<div class="select_area" onclick="showLayer(this, 'commentSortLayer_2053');return false;"><span class="comment_sort_txt">등록순</span><span class="blind">정렬 기준선택</span><em class="sp_img icon_option_more"></em></div>
-					<ul class="option_box" id="commentSortLayer_2053" data-no="2053" style="left:-1px;top:19px;display:none">
+					<div class="select_area" onclick="showLayer(this, 'commentSortLayer_2140889');return false;"><span class="comment_sort_txt">등록순</span><span class="blind">정렬 기준선택</span><em class="sp_img icon_option_more"></em></div>
+					<ul class="option_box" id="commentSortLayer_2140889" data-no="2140889" style="left:-1px;top:19px;display:none">
 						<!--<li class="comment_sort" data-sort="I">등록순</li>-->
 						<li class="comment_sort" data-sort="D">등록순</li>
 						<li class="comment_sort" data-sort="N">최신순</li>
@@ -777,11 +788,42 @@
 			</div>
 			<div class="fr">
 				<a href="#container" class="contgo">본문 보기</a>
-				<button type="button" class="btn_cmt_close" data-no="2053" data-loc="TOP"><span>댓글닫기</span><em class="sp_img icon_cmt_more"></em></button>
-				<button type="button" class="btn_cmt_refresh" data-no="2053" data-sort="">새로고침</button>
+				<button type="button" class="btn_cmt_close" data-no="2140889" data-loc="TOP"><span>댓글닫기</span><em class="sp_img icon_cmt_more"></em></button>
+				<button type="button" class="btn_cmt_refresh" data-no="2140889" data-sort="">새로고침</button>
 			</div>
 		</div>
+
+	<div class="comment_box">
+	<ul class="cmt_list">
+	{% for reply_dict in reply_dict_list %}
+
+			<li id="comment_li_{{reply_dict['id']}}" class="ub-content">
+				<div class="cmt_info clear" data-no="{{reply_dict['id']}}" data-rcnt="0" data-article-no="{{now_writing_dict['id']}}">
+					<div class="cmt_nickbox">
+						<span class="gall_writer ub-writer" data-nick="{{reply_dict['name']}}" data-uid="" data-ip="{{reply_dict['ip']}}">
+							<span class="nickname">
+								<em title="{{reply_dict['name']}}">{{reply_dict['name']}}</em>
+								<span class="ip">({{reply_dict['ip']}})</span>
+							</span>
+						</span>
+					</div>
+					<div class="clear cmt_txtbox btn_reply_write_all">
+						<p class="usertxt ub-word">{{reply_dict['context']}}  - dc App</p>
+					</div>
+					<div class="fr clear">
+						<span class="date_time">{{reply_dict['date']}}</span>
+						<div class="cmt_mdf_del" data-type="cmt" re_no="{{reply_dict['id']}}" data-my="N" data-article-no="{{now_writing_dict['id']}}" data-pwd-pop="Y">
+							<!-- <button type="button" class="btn_cmt_delete">삭제</button> -->
+						</div>
+					</div>
+				</div>
+			</li>
+
+	{% endfor %}
+	</ul>
 	</div>
+			<br>
+			<br>
 
 	<!-- 답글 입력 -->
 	<input type="hidden" id="recommend" value="">
@@ -807,7 +849,7 @@
 </form>
 
 <form action="/reply" method="post" id="reply">
-	<input name="writing_id" value="{{now_writing_dict['id']}}">
+	<input type="hidden" name="writing_id" value="{{now_writing_dict['id']}}">
     <div class="cmt_write_box clear">
         	<div class="fl">
     						<div class="user_info_input">
@@ -834,7 +876,6 @@ Shift+Enter 키를 동시에 누르면 줄바꿈이 됩니다."></textarea>
     			</div>
     			<div class="fr">
     							<button type="submit" class="btn_lightpurple btn_svc small repley_add" data-no="2053">등록</button>
-    								<button type="submit" class="btn_yeonpurple btn_svc small repley_add_vote" data-no="2053">등록+추천</button>
     			</div>
     		</div>
     	</div>

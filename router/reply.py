@@ -20,19 +20,19 @@ templates = Jinja2Templates(directory="templates")
 foot_writing_dict_list = gloVars.foot_writing_dict_list
 
 
-@router.post("/reply")
+@router.post("/reply", response_class=RedirectResponse, status_code=302)
 async def show_writing(request: Request, writing_id: int = Form(), name: str = Form(), password: str = Form(),
                        content: str = Form()):
     with Session(engine) as session:
         statement = select(Writing).where(Writing.id == writing_id)
         results = session.exec(statement)
 
-        resFetch = results.one()
+        resFetch = results.first()
 
         if resFetch is not None:
             now = datetime.datetime.now()
             reply_inform = Replys(
-                user=name, ip=request.client.host, password=hash_funcs.hash_make(password),
+                name=name, ip=".".join(request.client.host.split(".")[:2]), password=hash_funcs.hash_make(password),
                 context=content, date=now.strftime('%m.%d %H:%M:%S')
             )
 
@@ -42,11 +42,17 @@ async def show_writing(request: Request, writing_id: int = Form(), name: str = F
 
             statement = select(Writing).where(Replys.id == reply_inform.id)
             results = session.exec(statement)
-            resFetch.chat_ids += "," + str(reply_inform.id)
+
+            if len(resFetch.chat_ids):
+                resFetch.chat_ids += ","
+
+            resFetch.chat_ids += str(reply_inform.id)
 
             session.add(resFetch)
             session.commit()
             session.refresh(resFetch)
+
+        return f"/dimigo/{writing_id}"
 
         #return templates.TemplateResponse("clear_last.html",
         #                                  {"request": request, "now_writing_dict": now_writing_dict,

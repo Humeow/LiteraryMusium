@@ -42,5 +42,5 @@ async def favicon():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(host="localhost", app=app, reload=True)
+    uvicorn.run(host="localhost", app=app)
 # uvicorn main:app --reload

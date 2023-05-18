@@ -1,9 +1,19 @@
-<tr class="ub-content ctr">
-    <td class="gall_num"><span class="sp_img crt_icon"> </span></td>
-    <a class="reply_numbox" href="https://gall.dcinside.com/mini/board/view/?id=dimigo&amp;no=2050&amp;t=cv"><span class="reply_num">[5]</span></a>																					</td>
-    <td class="gall_writer ub-writer" data-nick="oo" data-uid="" data-ip="211.105" data-loc="view_list">
-    <span class="nickname" title="oo"><em>oo</em></span><span class="ip">(211.105)</span>																					</td>
-    <td class="gall_date" title="2023-05-12 15:51:59">05.12</td>
-    <td class="gall_count">246</td>
-    <td class="gall_recommend">7</td>
-</tr>
+<li id="comment_li_7644783" class="ub-content">
+    <div class="cmt_info clear" data-no="7644783" data-rcnt="0" data-article-no="2140889">
+        <div class="cmt_nickbox">
+            <span class="gall_writer ub-writer" data-nick="ㅇㅇ" data-uid="" data-ip="223.39">
+                <span class="nickname">
+                    <em title="ㅇㅇ">ㅇㅇ</em>
+                    <span class="ip">(223.39)</span>
+                </span>
+            </span>
+        </div>
+        <div class="clear cmt_txtbox btn_reply_write_all">
+            <p class="usertxt ub-word">객관적인 리뷰  - dc App</p>
+        </div>
+        <div class="fr clear">
+            <span class="date_time">05.17 20:47:32</span>
+            <div class="cmt_mdf_del" data-type="cmt" re_no="7644783" data-my="N" data-article-no="2140889" data-pwd-pop="Y"></div>
+        </div>
+    </div>
+</li>
