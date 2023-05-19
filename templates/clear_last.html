@@ -119,23 +119,6 @@
 
 	</div>
     <div class="area_links clear">
-      <ul class="fl clear">
-	  		<li><a>갤러리</a></li> 	  		<li><a>마이너갤</a></li> 	  			<li><a>갤로그</a></li>
-		<li><a>디시뉴스</a></li>
-		<li><a>디시게임</a></li>
-		<li><a>디시위키</a></li>
-				<li><a>이벤트</a></li>
-		<li><a>디시콘</a></li>
-		 <li><a class="btn_top_loginout">로그인</a></li>
-	  </ul>
-	  <div class="fl darkmodebox">
-		  <a href="javascript:;" class="darkonoff" onclick="darkmode()"><em class="sp_img icon_tdark"></em>야간모드</a>
-		  <div class="pop_tipbox join_tip dark" onclick="$(this).hide();used_darkmode();" style="cursor:pointer;top:25px;left:-35px;display:none">
-			<div class="inner">
-			  <p class="join_txt">야간 모드를 이용해 보세요</p>
-			</div>
-		  </div>
-	  </div>
 	</div>
 	  </div>
 </header>
@@ -144,32 +127,10 @@
       <nav class="gnb clear">
         <h2 class="blind">GNB</h2>
         <ul class="gnb_list clear">
-          <li>
-            <a class="hover_gnb link_gnb " url_code="gallery">DC갤</a>
-			<span class="gnb_area" style="display:block;width:77px;height:12px;position:absolute;left:0;bottom:0;"></span>
-            <!-- 2차메뉴 -->
-            <div class="depth2" style="left:0;display:none"><!--2차메뉴 열림 : display:block -->
-              <span class="sp_img depth_bg"></span>
-              <ul class="depth2_list">
-                <li><a>게임</a></li>
-                <li><a>연예/방송</a></li>
-                <li><a>스포츠</a></li>
-                <li><a>교육/금융/IT</a></li>
-                <li><a>여행/음식/생물</a></li>
-                <li><a>취미/생활</a></li>
-              </ul>
-            </div>
-            <!-- //2차메뉴 -->
-          </li>
-          <li><a class="link_gnb " url_code="mgallery">EB갤</a></li>
-          <li><a class="link_gnb on" url_code="migallery">WP갤</a></li>
-          <li><a class="link_gnb" url_code="gallog"></a></li>
-          <li><a class="link_gnb" url_code="dcnews">HD갤</a></li>
-          <li><a class="link_gnb" url_code="dcgame">허관무갤</a></li>
-
-
-
-                </ul>
+			{% for index in range(gallery_list_length) %}
+				<li><a class="link_gnb {{'on' if now_writing_dict['gallery'] == gallery_list[index][1] else ''}}" url_code="gallery" href="/gallery/{{gallery_list[index][1]}}/{{index+1}}">{{gallery_list[index][0]}}갤</a></li>
+			{% endfor %}
+		</ul>
 
         <!-- 어제 게시글,댓글 등록 -->
         <div class="gall_exposure">
@@ -732,6 +693,7 @@
 								</div>
 								<form id="writing_recommend" action="/recommend" method="post">
 									<input type="hidden" name="is_recommendation" value=1>
+									<input type="hidden" name="gallery" value={{now_writing_dict['gallery']}}>
 									<input type="hidden" name="writing_id" value={{now_writing_dict['id']}}>
 									<button form="writing_recommend" type="submit" class="btn_recom_up" data-no="{{now_writing_dict['id']}}"><span class="blind">개념 추천</span><em class="sp_img icon_recom_up"></em></button>
 								</form>
@@ -739,6 +701,7 @@
 							<div class="inner">
 								<form id="writing_unrecommend" action="/recommend" method="post">
 									<input type="hidden" name="is_recommendation" value=0>
+									<input type="hidden" name="gallery" value={{now_writing_dict['gallery']}}>
 									<input type="hidden" name="writing_id" value={{now_writing_dict['id']}}>
 									<button form="writing_unrecommend" type="submit" class="btn_recom_down" data-no="{{now_writing_dict['id']}}"><span class="blind">개념 비추천</span><em class="sp_img icon_recom_down"></em></button>
 								</form>
@@ -789,7 +752,7 @@
 			<div class="fr">
 				<a href="#container" class="contgo">본문 보기</a>
 				<button type="button" class="btn_cmt_close" data-no="2140889" data-loc="TOP"><span>댓글닫기</span><em class="sp_img icon_cmt_more"></em></button>
-				<button type="button" class="btn_cmt_refresh" data-no="2140889" data-sort="">새로고침</button>
+				<button type="button" class="btn_cmt_refresh" data-no="2140889" data-sort="" onclick="window.location.reload()">새로고침</button>
 			</div>
 		</div>
 
@@ -850,6 +813,7 @@
 
 <form action="/reply" method="post" id="reply">
 	<input type="hidden" name="writing_id" value="{{now_writing_dict['id']}}">
+	<input type="hidden" name="gallery" value={{now_writing_dict['gallery']}}>
     <div class="cmt_write_box clear">
         	<div class="fl">
     						<div class="user_info_input">
@@ -1072,8 +1036,8 @@ viewComments(1, 'VIEW_PAGE');
 								<thead>
 									<tr>
 										<th scope="col">번호</th>
-										                            			<th scope="col">말머리</th>
-                            													<th scope="col">제목</th>
+										<th scope="col">말머리</th>
+										<th scope="col">제목</th>
 										<th scope="col">글쓴이</th>
 										<th scope="col">작성일</th>
 										<th scope="col">조회</th>
@@ -1087,8 +1051,8 @@ viewComments(1, 'VIEW_PAGE');
 											<td class="gall_num"><span class="sp_img crt_icon"> </span></td>
 											<td class="gall_subject">{{foot_writing_dict['subject']}}</td>
 											<td class="gall_tit ub-word">
-												<a href="/dimigo/{{foot_writing_dict['id']}}" view-msg=""><em class="icon_img icon_txt"></em>{{foot_writing_dict['title']}}</a>
-												<a class="reply_numbox" href="/dimigo/{{foot_writing_dict['nickname']}}"><span class="reply_num">[{{foot_writing_dict['reply_num']}}]</span></a>
+												<a href="/gallery/{{now_writing_dict['gallery']}}/{{foot_writing_dict['id']}}" view-msg=""><em class="icon_img icon_txt"></em>{{foot_writing_dict['title']}}</a>
+												<a class="reply_numbox" href="/gallery/{{now_writing_dict['gallery']}}/{{foot_writing_dict['id']}}"><span class="reply_num">[{{foot_writing_dict['reply_num']}}]</span></a>
 											</td>
 											<td class="gall_writer ub-writer" data-nick="{{foot_writing_dict['nickname']}}" data-uid="" data-ip="{{foot_writing_dict['ip']}}" data-loc="view_list">
 											<span class="nickname" title="{{foot_writing_dict['nickname']}}"><em>{{foot_writing_dict['nickname']}}</em></span><span class="ip">({{foot_writing_dict['ip']}})</span>																					</td>
@@ -1101,8 +1065,8 @@ viewComments(1, 'VIEW_PAGE');
 											<td class="gall_num">{{foot_writing_dict['id']}}</td>
 											<td class="gall_subject">{{foot_writing_dict['subject']}}</td>
 											<td class="gall_tit ub-word">
-												<a href="/dimigo/{{foot_writing_dict['id']}}" view-msg=""><em class="icon_img icon_txt"></em>{{foot_writing_dict['title']}}</a>
-												<a class="reply_numbox" href="/dimigo/{{foot_writing_dict['nickname']}}"><span class="reply_num">[{{foot_writing_dict['reply_num']}}]</span></a>
+												<a href="/gallery/{{now_writing_dict['gallery']}}/{{foot_writing_dict['id']}}" view-msg=""><em class="icon_img icon_txt"></em>{{foot_writing_dict['title']}}</a>
+												<a class="reply_numbox" href="/gallery/{{now_writing_dict['gallery']}}/{{foot_writing_dict['id']}}"><span class="reply_num">[{{foot_writing_dict['reply_num']}}]</span></a>
 											</td>
 											<td class="gall_writer ub-writer" data-nick="{{foot_writing_dict['nickname']}}" data-uid="" data-ip="{{foot_writing_dict['ip']}}" data-loc="view_list">
 											<span class="nickname" title="{{foot_writing_dict['nickname']}}"><em>{{foot_writing_dict['nickname']}}</em></span><span class="ip">({{foot_writing_dict['ip']}})</span>																					</td>
@@ -1212,19 +1176,7 @@ viewComments(1, 'VIEW_PAGE');
 $('footer.dcfoot').addClass('type1');
 </script>
 
-
-     <div class="info_policy">
-       <a href="https://www.dcinside.com/company">회사소개</a>
-       <a href="https://www.dcinside.com/company#alliance">제휴안내</a>
-       <a href="https://nstatic.dcinside.com/dc/dcad/w/index.html">광고안내</a>
-       <a href="https://nstatic.dcinside.com/dc/w/policy/policy_index.html">이용약관</a>
-       <a href="https://nstatic.dcinside.com/dc/w/policy/privacy_index.html"><b>개인정보처리방침</b></a>
-       <a href="https://nstatic.dcinside.com/dc/w/policy/youth_policy.html">청소년보호정책</a>
-
-                     <a href="javascript:;" onclick="open_mini_guide()">미니 갤러리 운영원칙</a>
-
-     </div>
-     <div class="copyright">Copyright ⓒ 1999 - 2023 dcinside. All rights reserved.</div>
+     <div class="copyright">Copyright ⓒ 2002 - 2023 dimiinside. All rights didn't reserve.</div>
     </footer>
     <!-- //하단 -->
       </div>

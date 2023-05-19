@@ -22,7 +22,7 @@ foot_writing_dict_list = gloVars.foot_writing_dict_list
 
 @router.post("/reply", response_class=RedirectResponse, status_code=302)
 async def show_writing(request: Request, writing_id: int = Form(), name: str = Form(), password: str = Form(),
-                       content: str = Form()):
+                       content: str = Form(), gallery: str = Form()):
     with Session(engine) as session:
         statement = select(Writing).where(Writing.id == writing_id)
         results = session.exec(statement)
@@ -33,7 +33,7 @@ async def show_writing(request: Request, writing_id: int = Form(), name: str = F
             now = datetime.datetime.now()
             reply_inform = Replys(
                 name=name, ip=".".join(request.client.host.split(".")[:2]), password=hash_funcs.hash_make(password),
-                context=content, date=now.strftime('%m.%d %H:%M:%S')
+                context=content, date=now.strftime('%m.%d %H:%M:%S'), writing_id=writing_id
             )
 
             session.add(reply_inform)
@@ -52,7 +52,7 @@ async def show_writing(request: Request, writing_id: int = Form(), name: str = F
             session.commit()
             session.refresh(resFetch)
 
-        return f"/dimigo/{writing_id}"
+        return f"/gallery/{gallery}/{writing_id}"
 
         #return templates.TemplateResponse("clear_last.html",
         #                                  {"request": request, "now_writing_dict": now_writing_dict,

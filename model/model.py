@@ -10,10 +10,12 @@ class Replys(SQLModel, table=True):
     ip: str
     context: str
     date: str
+    writing_id: int
 
 
 class Writing(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True, unique=True)
+    id: Optional[int] = Field(default=None, primary_key=True)
+    gallery: str
     subject: str
     title: str
     nickname: str

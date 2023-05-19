@@ -15,7 +15,7 @@ def load_reply(writing_id: str):
         if resFetch is None:
             return []
 
-        if not len(resFetch.chat_ids):
+        if not len(resFetch.chat_ids) or resFetch.chat_ids == " ":
             return []
 
         chat_dict_list = list()

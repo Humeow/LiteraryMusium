@@ -18,14 +18,16 @@ router = APIRouter()
 templates = Jinja2Templates(directory="templates")
 
 
-@router.get("/dimigo/{writing_id}")
-async def show_writing(request: Request, writing_id):
+@router.get("/gallery/{gallery}/{writing_id}")
+async def show_writing(request: Request, gallery, writing_id):
     with Session(engine) as session:
 
-        statement = select(Writing).where(Writing.id == writing_id)
+        statement = select(Writing).where(Writing.id == writing_id).where(Writing.gallery == gallery)
         results = session.exec(statement)
 
         resFetch = results.first()
+
+        print(resFetch)
 
         if resFetch is None:
             return None
@@ -34,8 +36,15 @@ async def show_writing(request: Request, writing_id):
 
         reply_dict_list = load_reply(writing_id)
 
+        resFetch.count += 1
+        session.add(resFetch)
+        session.commit()
+
+        session.refresh(resFetch)
+
         now_writing_dict = {
-            "id": resFetch.id,
+            "id": writing_id,
+            "gallery": gallery,
             "subject": resFetch.subject,
             "title": resFetch.title,
             "nickname": resFetch.nickname,
@@ -50,9 +59,18 @@ async def show_writing(request: Request, writing_id):
             "chat_id": resFetch.chat_ids.split(","),
         }
 
+        gallery_list = [
+            ["DC", 'dc'],
+            ["EB", 'eb'],
+            ["WP", 'wp'],
+            ["HD", 'hd'],
+            ["허관무", 'gwanmu'],
+        ]
+
         return templates.TemplateResponse("clear_last.html",
-                                          {"request": request, "now_writing_dict": now_writing_dict,
-                                           "foot_writing_dict_list": foot_writing_dict_list, "reply_dict_list": reply_dict_list})
+                                          {"request": request, "now_writing_dict": now_writing_dict, "gallery_list": gallery_list,
+                                           "foot_writing_dict_list": foot_writing_dict_list, "reply_dict_list": reply_dict_list,
+                                          "gallery_list_length": len(gallery_list), })
 
 
 @router.get("/print", response_class=HTMLResponse)
@@ -61,7 +79,7 @@ async def print_main(request: Request):
 
 
 @router.post("/recommend", response_class=RedirectResponse, status_code=302)
-async def recommend_writing(request: Request, is_recommendation: int = Form(), writing_id: int = Form()):
+async def recommend_writing(request: Request, is_recommendation: int = Form(), writing_id: int = Form(), gallery: str = Form()):
     with Session(engine) as session:
         statement = select(Writing).where(Writing.id == writing_id)
         results = session.exec(statement)
@@ -82,19 +100,4 @@ async def recommend_writing(request: Request, is_recommendation: int = Form(), w
 
         session.refresh(resFetch)
 
-    return f"/dimigo/{writing_id}"
-
-
-@router.post("/dimigo/write/")
-async def writing(request: Request, id: int, title: str,
-                  content: str):
-    with Session(engine) as session:
-        cards_inform = Writing(
-            id=id, title=title, content=content, chat_ids=""
-        )
-
-        session.add(cards_inform)
-        session.commit()
-
-        session.refresh(cards_inform)
-
+    return f"/gallery/{gallery}/{writing_id}"
