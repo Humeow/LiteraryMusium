@@ -16,7 +16,7 @@ from db.db import *
 
 # ========== global_variable insert =========== #
 
-app = FastAPI()
+app = FastAPI(docs_url=None, redoc_url=None)
 
 for file in os.listdir("./router"):
     if len(file) >= 4:
@@ -42,5 +42,5 @@ async def favicon():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(host="localhost", app=app)
+    uvicorn.run(host="127.0.0.1", app=app)
 # uvicorn main:app --reload
