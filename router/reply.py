@@ -17,9 +17,6 @@ import json
 router = APIRouter()
 templates = Jinja2Templates(directory="templates")
 
-foot_writing_dict_list = gloVars.foot_writing_dict_list
-
-
 @router.post("/reply", response_class=RedirectResponse, status_code=302)
 async def show_writing(request: Request, writing_id: int = Form(), name: str = Form(), password: str = Form(),
                        content: str = Form(), gallery: str = Form()):

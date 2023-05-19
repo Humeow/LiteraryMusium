@@ -13,6 +13,7 @@ import time
 import json
 
 from commands.load_reply import *
+from commands.foot_writing import *
 
 router = APIRouter()
 templates = Jinja2Templates(directory="templates")
@@ -27,12 +28,11 @@ async def show_writing(request: Request, gallery, writing_id):
 
         resFetch = results.first()
 
-        print(resFetch)
-
         if resFetch is None:
             return None
 
-        foot_writing_dict_list = gloVars.foot_writing_dict_list
+        #foot_writing_dict_list = gloVars.foot_writing_dict_list
+        foot_writing_dict_list = foot_writing_dict_list_func(gallery)
 
         reply_dict_list = load_reply(writing_id)
 
@@ -101,3 +101,32 @@ async def recommend_writing(request: Request, is_recommendation: int = Form(), w
         session.refresh(resFetch)
 
     return f"/gallery/{gallery}/{writing_id}"
+
+
+@router.post("/write")
+async def write_writing(request: Request,
+                        writing_id: int = Form(default=0), gallery: str = Form(), subject: str = Form(),
+                        title: str = Form(), nickname: str = Form(), ip: str = Form(),
+                        reply_num: int = Form(), date: str = Form(), count: int = Form(), recommend: int = Form(),
+                        unrecommend: int = Form(), content: str = Form(), chat_ids: str = Form(), secret: str = Form(default="")):
+    if secret != "sqrtpie_is_so_silly_that_cannot_say_anything!@#$%^&*()":
+        return None
+
+    with Session(engine) as session:
+
+        if writing_id == 0:
+            writing_inform = Writing(
+                gallery=gallery, subject=subject, title=title, nickname=nickname, ip=ip,
+                reply_num=reply_num, date=date, count=count, recommend=recommend, unrecommend=unrecommend,
+                content=content.replace('\\n', '\n'), chat_ids=chat_ids
+            )
+        else:
+            writing_inform = Writing(
+                id=writing_id, gallery=gallery, subject=subject, title=title, nickname=nickname, ip=ip,
+                reply_num=reply_num, date=date, count=count, recommend=recommend, unrecommend=unrecommend,
+                content=content, chat_ids=chat_ids
+            )
+
+        session.add(writing_inform)
+        session.commit()
+        session.refresh(writing_inform)

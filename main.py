@@ -1,7 +1,7 @@
 from typing import Optional
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 from fastapi import FastAPI, Request
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
 from fastapi.templating import Jinja2Templates
@@ -16,7 +16,7 @@ from db.db import *
 
 # ========== global_variable insert =========== #
 
-app = FastAPI(docs_url=None, redoc_url=None)
+app = FastAPI(docs_url="/document_diminside", redoc_url=None)
 
 for file in os.listdir("./router"):
     if len(file) >= 4:
@@ -31,9 +31,10 @@ templates = Jinja2Templates(directory="templates")
 
 create_db_and_tables()
 
-@app.get("/")
+@app.get("/", response_class=RedirectResponse, status_code=302)
 async def main(request: Request):
-    return {"response": "Hello!"}
+    return "/gallery/wp/3"
+    #return {"response": "Hello!"}
 
 @app.get('/favicon.ico', include_in_schema=False)
 async def favicon():
