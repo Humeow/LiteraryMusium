@@ -23,5 +23,12 @@
       <jdbc-url>jdbc:mariadb://125.141.95.127:6603</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="svc.sel4.cloudtype.app:32092" uuid="f280ee69-cea9-4c9f-acf3-cbbccae264c9">
+      <driver-ref>mariadb</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mariadb://svc.sel4.cloudtype.app:30529/literacy</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

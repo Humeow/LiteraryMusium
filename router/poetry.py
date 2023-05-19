@@ -1,3 +1,5 @@
+import datetime
+
 from fastapi import APIRouter, Request, Form
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
@@ -105,10 +107,11 @@ async def recommend_writing(request: Request, is_recommendation: int = Form(), w
 
 @router.post("/write")
 async def write_writing(request: Request,
-                        writing_id: int = Form(default=0), gallery: str = Form(), subject: str = Form(),
-                        title: str = Form(), nickname: str = Form(), ip: str = Form(),
-                        reply_num: int = Form(), date: str = Form(), count: int = Form(), recommend: int = Form(),
-                        unrecommend: int = Form(), content: str = Form(), chat_ids: str = Form(), secret: str = Form(default="")):
+                        writing_id: int = Form(default=0), gallery: str = Form(default="wp"), subject: str = Form(default="일반"),
+                        title: str = Form(), nickname: str = Form(), ip: str = Form(), reply_num: int = Form(default=0),
+                        date: str = Form(default=datetime.datetime.now().strftime("%Y.%m.%d %H:%M:%S")),
+                        count: int = Form(default=0), recommend: int = Form(default=0), unrecommend: int = Form(default=0),
+                        content: str = Form(), chat_ids: str = Form(default=""), secret: str = Form()):
     if secret != "sqrtpie_is_so_silly_that_cannot_say_anything!@#$%^&*()":
         return None
 
