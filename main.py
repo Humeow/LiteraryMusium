@@ -29,8 +29,6 @@ for file in os.listdir("./router"):
 app.mount("/static/", StaticFiles(directory='static', html=True), name="static")
 templates = Jinja2Templates(directory="templates")
 
-create_db_and_tables()
-
 @app.get("/", response_class=RedirectResponse, status_code=302)
 async def main(request: Request):
     return "/gallery/wp/3"
@@ -43,5 +41,7 @@ async def favicon():
 
 if __name__ == "__main__":
     import uvicorn
+
+    create_db_and_tables()
     uvicorn.run(host="localhost", app=app)
 # uvicorn main:app --reload

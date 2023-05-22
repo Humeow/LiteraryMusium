@@ -1,6 +1,6 @@
 from typing import List, Optional
 
-from sqlmodel import Field, Relationship, SQLModel, JSON, Column
+from sqlmodel import Field, Relationship, SQLModel, JSON, Column, VARCHAR
 
 
 class Replys(SQLModel, table=True):
@@ -11,6 +11,11 @@ class Replys(SQLModel, table=True):
     context: str
     date: str
     writing_id: int
+
+    class Config:
+        arbitrary_types_allowed = True
+
+
 
 
 class Writing(SQLModel, table=True):

@@ -24,6 +24,11 @@ def load_reply(writing_id: str):
             results = session.exec(statement)
             resFetch = results.first()
 
+            if resFetch is None:
+                continue
+
+            print("!!", resFetch)
+
             chat_dict_list.append({
                 "name": resFetch.name,
                 "ip": resFetch.ip,

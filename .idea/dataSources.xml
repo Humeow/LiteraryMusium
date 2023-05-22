@@ -16,18 +16,18 @@
         </library>
       </libraries>
     </data-source>
-    <data-source source="LOCAL" name="@125.141.95.127" uuid="0dc3ff0e-39ea-4d13-86e5-2d6d1875cad0">
+    <data-source source="LOCAL" name="125.141.95.127" uuid="0dc3ff0e-39ea-4d13-86e5-2d6d1875cad0">
       <driver-ref>mariadb</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mariadb://125.141.95.127:6603</jdbc-url>
+      <jdbc-url>jdbc:mariadb://125.141.95.127:6603/LiteracyMusium</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="svc.sel4.cloudtype.app:32092" uuid="f280ee69-cea9-4c9f-acf3-cbbccae264c9">
-      <driver-ref>mariadb</driver-ref>
+    <data-source source="LOCAL" name="database.sqlite3" uuid="5e346d0e-f67c-4326-bb4b-687354a25dfc">
+      <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
-      <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mariadb://svc.sel4.cloudtype.app:30529/literacy</jdbc-url>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$USER_HOME$/Downloads/database.sqlite3</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

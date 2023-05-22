@@ -9,8 +9,8 @@ if os.path.exists("login_information.txt"):
 
 DATABASE = {
     'drivername': 'mysql',
-    'host': 'svc.sel4.cloudtype.app',
-    'port': '30529',
+    'host': '125.141.95.127',
+    'port': '6603',
     'username': "humeow",
     'password': 'abcdefg0223',
     'query': {'charset': 'utf8'}
@@ -20,7 +20,7 @@ url = "sqlite:///db/database.sqlite3"
 
 engine = create_engine(
     url,
-    #"mariadb://humeow:abcdefg0223@svc.sel4.cloudtype.app:30529/literacy",
+    #"mariadb://humeow0223:dodogomraspi0223!@125.141.95.127:6603/LiteracyMusium",
     echo=True
 )
 
