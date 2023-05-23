@@ -1,7 +1,35 @@
 from typing import List, Optional
 
 from sqlmodel import Field, Relationship, SQLModel, JSON
-from sqlmodel import UniqueConstraint, PrimaryKeyConstraint
+from sqlmodel import create_engine
+import os
+from sqlmodel import SQLModel
+
+
+from sqlalchemy import ForeignKeyConstraint, UniqueConstraint, PrimaryKeyConstraint
+
+
+DATABASE = {
+    'drivername': 'mysql',
+    'host': '125.141.95.127',
+    'port': '6603',
+    'username': "humeow",
+    'password': 'abcdefg0223',
+    'query': {'charset': 'utf8'}
+}
+
+url = "sqlite:///db/database.sqlite3"
+
+engine = create_engine(
+    #url,
+    f"postgresql://humeow0223:{'password'}@localhost:5432/literacy_musium",  # pip: psycopg2
+    echo=True
+)
+
+
+def create_db_and_tables():  # scooped_session?
+    SQLModel.metadata.create_all(engine)
+
 
 
 class Replys(SQLModel, table=True):
@@ -39,4 +67,4 @@ class Writing(SQLModel, table=True):
 
 
 if __name__ == "__main__":
-    pass
+    SQLModel.metadata.create_all(engine)

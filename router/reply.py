@@ -21,7 +21,7 @@ templates = Jinja2Templates(directory="templates")
 async def show_writing(request: Request, writing_id: int = Form(), name: str = Form(), password: str = Form(),
                        content: str = Form(), gallery: str = Form()):
     with Session(engine) as session:
-        statement = select(Writing).where(Writing.id == writing_id)
+        statement = select(Writing).where(Writing.id == writing_id).where(Writing.gallery == gallery)
         results = session.exec(statement)
 
         resFetch = results.first()

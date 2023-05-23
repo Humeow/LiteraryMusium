@@ -128,7 +128,7 @@
         <h2 class="blind">GNB</h2>
         <ul class="gnb_list clear">
 			{% for index in range(gallery_list_length) %}
-				<li><a class="link_gnb {{'on' if now_writing_dict['gallery'] == gallery_list[index][1] else ''}}" url_code="gallery" href="/gallery/{{gallery_list[index][1]}}/{{index+1}}">{{gallery_list[index][0]}}갤</a></li>
+				<li><a class="link_gnb {{'on' if now_writing_dict['gallery'] == gallery_list[index][1] else ''}}" url_code="gallery" href="/gallery/{{gallery_list[index][1]}}/1">{{gallery_list[index][0]}}갤</a></li>
 			{% endfor %}
 		</ul>
 
@@ -1019,6 +1019,7 @@ viewComments(1, 'VIEW_PAGE');
 			<!-- bottom_listwrap -->
 			<div id="bottom_listwrap" class="listwrap clear">
 				<!-- left_content -->
+				<br><br><br><br><br><br><br><br><br>
 				<section class="left_content">
 					<h2 class="blind">왼쪽 컨텐츠 영역</h2>
 					<article>
@@ -1026,6 +1027,7 @@ viewComments(1, 'VIEW_PAGE');
 						<!-- 갤러리 리스트 -->
 						<div class="gall_listwrap list">
 							<!-- 게시판형 갤러리 리스트-->
+
 							<div id="survey" style="display: none;"></div><table class="gall_list ">
 								<caption>갤러리 리스트</caption>
 								<colgroup>

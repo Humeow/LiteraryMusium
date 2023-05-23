@@ -1,4 +1,5 @@
 import datetime
+import os
 
 from fastapi import APIRouter, Request, Form
 from fastapi.responses import HTMLResponse, RedirectResponse
@@ -50,7 +51,7 @@ async def show_writing(request: Request, gallery, writing_id):
         #foot_writing_dict_list = gloVars.foot_writing_dict_list
         foot_writing_dict_list = foot_writing_dict_list_func(gallery)
 
-        reply_dict_list = load_reply(writing_id)
+        reply_dict_list = load_reply(writing_id, gallery)
 
         resFetch.count += 1
         session.add(resFetch)
@@ -96,27 +97,8 @@ async def print_main(request: Request):
 
 @router.post("/recommend", response_class=RedirectResponse, status_code=302)
 async def recommend_writing(request: Request, is_recommendation: int = Form(), writing_id: int = Form(), gallery: str = Form()):
-    with Session(engine) as session:
-        statement = select(Writing).where(Writing.id == writing_id)
-        results = session.exec(statement)
 
-        resFetch = results.first()
-
-        if resFetch is None:
-            return None
-
-        if is_recommendation:
-            resFetch.recommend += 1
-        else:
-            resFetch.unrecommend += 1
-
-
-        session.add(resFetch)
-        session.commit()
-
-        session.refresh(resFetch)
-
-    return f"/gallery/{gallery}/{writing_id}"
+    return f"/gallery/{gallery}/1"
 
 
 @router.post("/write")
@@ -126,7 +108,7 @@ async def write_writing(request: Request,
                         date: str = Form(default=datetime.datetime.now().strftime("%Y.%m.%d %H:%M:%S")),
                         count: int = Form(default=0), recommend: int = Form(default=0), unrecommend: int = Form(default=0),
                         content: str = Form(), chat_ids: str = Form(default=""), secret: str = Form()):
-    if secret != "sqrtpie_is_so_silly_that_cannot_say_anything!@#$%^&*()":
+    if secret != os.environ.get('LiteraryMusium_WRITE_SECRET'):
         return None
 
     with Session(engine) as session:

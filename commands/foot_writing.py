@@ -8,18 +8,20 @@ from model.model import *
 
 def foot_writing_dict_list_func(gallery: str):
     with Session(engine) as session:
-        statement = select(Writing).where(Writing.gallery == gallery)
+        statement = select(Writing).where(Writing.gallery == gallery).limit(30)
         results = session.exec(statement)
 
         every_writing_dict = results.fetchall()
 
         foot_writing_dict_list = list()
         for each_writing_dict in every_writing_dict:
-            chatid_len = each_writing_dict.chat_ids.split()
-            if chatid_len == [' ']: chatid_len = 0
+            chatid_len = each_writing_dict.chat_ids.split(",")
+            if chatid_len == ['']: chatid_len = 0
             else: chatid_len = len(chatid_len)
 
-            if each_writing_dict.id in gloVars.foot_writing_dict_except_ids:
+            print(each_writing_dict)
+
+            if [each_writing_dict.id, each_writing_dict.gallery] in gloVars.foot_writing_dict_except_ids:
                 continue
 
             foot_writing_dict_list.append(

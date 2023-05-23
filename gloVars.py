@@ -14,5 +14,5 @@
 # ]
 
 foot_writing_dict_except_ids = [
-    1972,
+    [0, 'wp']
 ]

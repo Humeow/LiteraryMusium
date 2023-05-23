@@ -5,10 +5,10 @@ from sqlmodel import select
 from model.model import *
 
 
-def load_reply(writing_id: str):
+def load_reply(writing_id: str, gallery: str):
     with Session(engine) as session:
 
-        statement = select(Writing).where(Writing.id == writing_id)
+        statement = select(Writing).where(Writing.id == writing_id).where(Writing.gallery == gallery)
         results = session.exec(statement)
 
         resFetch = results.first()
@@ -26,8 +26,6 @@ def load_reply(writing_id: str):
 
             if resFetch is None:
                 continue
-
-            print("!!", resFetch)
 
             chat_dict_list.append({
                 "name": resFetch.name,
