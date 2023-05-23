@@ -19,8 +19,6 @@ def foot_writing_dict_list_func(gallery: str):
             if chatid_len == ['']: chatid_len = 0
             else: chatid_len = len(chatid_len)
 
-            print(each_writing_dict)
-
             if [each_writing_dict.id, each_writing_dict.gallery] in gloVars.foot_writing_dict_except_ids:
                 continue
 

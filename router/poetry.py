@@ -21,19 +21,11 @@ from commands.foot_writing import *
 router = APIRouter()
 templates = Jinja2Templates(directory="templates")
 
-def gallery_first_writing(gallery):
-    gallery_first_writing_list = {
-        "dc": 1, "eb": 2, "wp": 3, "hd": 4, "gwanmoo": 5,
-    }
-
-    return gallery_first_writing_list[gallery]
-
 
 @router.get("/gallery/{gallery}", response_class=RedirectResponse, status_code=302)
 async def show_writing(request: Request, gallery):
-    writing_id = gallery_first_writing(gallery)
 
-    return f"/gallery/{gallery}/{writing_id}"
+    return f"/gallery/{gallery}/1"
 
 
 @router.get("/gallery/{gallery}/{writing_id}")

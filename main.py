@@ -54,7 +54,7 @@ templates = Jinja2Templates(directory="templates")
 
 @app.get("/", response_class=RedirectResponse, status_code=302)
 async def main(request: Request):
-    return "/gallery/wp/3"
+    return "/gallery/wp"
     #return {"response": "Hello!"}
 
 @app.get('/favicon.ico', include_in_schema=False)

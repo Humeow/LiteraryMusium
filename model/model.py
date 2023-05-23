@@ -23,7 +23,7 @@ class Writing(SQLModel, table=True):
         PrimaryKeyConstraint('id', 'gallery', name="unique_id_by_gallery")
     )
 
-    id: Optional[int] = Field(default=None, primary_key=True)
+    id: Optional[int] = Field(default=None)
     gallery: str
     subject: str
     title: str
