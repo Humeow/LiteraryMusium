@@ -5,7 +5,7 @@ from sqlmodel import UniqueConstraint, PrimaryKeyConstraint
 
 
 class Replys(SQLModel, table=True):
-    id: int = Field(default=None, primary_key=True, unique=True)
+    id: int = Field(default=None, primary_key=True)
     name: str
     password: str
     ip: str
