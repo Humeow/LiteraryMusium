@@ -21,8 +21,7 @@ else:
     #url = f"postgresql://humeow0223:{password}@diminside.humeow.xyz:54323/literacy_musium"
     url = f"postgresql://humeow0223:{password}@127.141.95.127:54323/literacy_musium"
 
-#url = f"postgresql://humeow0223:{password}@127.141.95.127:54323/literacy_musium"
-url = f"postgresql://humeow0223:{password}@postgresql:5432/literacy_musium"
+url = f"postgresql://humeow0223:{password}@localhost:54333/literacy_musium"
 
 engine = create_engine(
     url,
