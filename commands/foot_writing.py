@@ -37,4 +37,4 @@ def foot_writing_dict_list_func(gallery: str):
                 }
             )
 
-    return foot_writing_dict_list[::-1]
+    return sorted(foot_writing_dict_list, key=lambda x: -x["id"])

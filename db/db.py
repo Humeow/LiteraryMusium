@@ -20,6 +20,8 @@ if os.environ.get('LiteraryMusium_DBPW') is not None:
 else:
     url = f"postgresql://humeow0223:{password}@diminside.humeow.xyz:54323/literacy_musium",
 
+url = f"postgresql://humeow0223:{password}@diminside.humeow.xyz:54323/literacy_musium"
+
 engine = create_engine(
     url,
     #"mariadb://humeow0223:dodogomraspi0223!@125.141.95.127:6603/LiteracyMusium",
