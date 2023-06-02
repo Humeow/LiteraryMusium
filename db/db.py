@@ -18,9 +18,11 @@ DATABASE = {
 if os.environ.get('LiteraryMusium_DBPW') is not None:
     url = f"postgresql://humeow0223:{password}@localhost:5432/literacy_musium"
 else:
-    url = f"postgresql://humeow0223:{password}@diminside.humeow.xyz:54323/literacy_musium",
+    #url = f"postgresql://humeow0223:{password}@diminside.humeow.xyz:54323/literacy_musium"
+    url = f"postgresql://humeow0223:{password}@127.141.95.127:54323/literacy_musium"
 
-url = f"postgresql://humeow0223:{password}@diminside.humeow.xyz:54323/literacy_musium"
+#url = f"postgresql://humeow0223:{password}@127.141.95.127:54323/literacy_musium"
+url = f"postgresql://humeow0223:{password}@postgresql:5432/literacy_musium"
 
 engine = create_engine(
     url,

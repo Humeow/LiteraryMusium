@@ -67,7 +67,7 @@ if __name__ == "__main__":
 
     create_db_and_tables()
 
-    basic_db_setting("메인 화면이에요.")
+  #  basic_db_setting("메인 화면이에요.")
 
     uvicorn.run(host="localhost", app=app)
 # uvicorn main:app --reload
