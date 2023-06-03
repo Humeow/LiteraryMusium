@@ -65,6 +65,7 @@ async def show_writing(request: Request, gallery, writing_id):
             "unrecommend": resFetch.unrecommend,
 
             "content": resFetch.content,
+            "image_link": resFetch.image_link,
             "chat_id": resFetch.chat_ids.split(","),
         }
 
