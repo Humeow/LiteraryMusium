@@ -33,6 +33,9 @@ async def show_writing(request: Request, gallery, writing_id):
     with Session(engine) as session:
 
         statement = select(Writing).where(Writing.id == writing_id).where(Writing.gallery == gallery)
+
+        print(statement)
+
         results = session.exec(statement)
 
         resFetch = results.first()
@@ -65,7 +68,8 @@ async def show_writing(request: Request, gallery, writing_id):
             "unrecommend": resFetch.unrecommend,
 
             "content": resFetch.content,
-            "image_link": resFetch.image_link,
+            "link_type": resFetch.link_type,
+            "link": resFetch.link,
             "chat_id": resFetch.chat_ids.split(","),
         }
 

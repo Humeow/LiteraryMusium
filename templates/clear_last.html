@@ -668,10 +668,14 @@
 							-->
 							</span></div><pre></pre>							<div class="write_div" style="overflow:hidden;width:900px;">
 
-							{% if now_writing_dict['image_link'] != None %}
-								<img style="max-width: 70%; height: auto;" src="{{now_writing_dict['image_link']}}">
+							{% if now_writing_dict['link_type'] == "img" %}
+								<img style="max-width: 70%; height: auto;" src="{{now_writing_dict['link']}}">
+								<br><br>
+							{% elif now_writing_dict['link_type'] == "youtube" %}
+								<iframe width="560" height="315" src="https://www.youtube.com/embed/{{now_writing_dict['link']}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 								<br><br>
 							{% endif %}
+
 
 							<p style="white-space: pre-line;">{{now_writing_dict['content']}}</p>
 							</div>

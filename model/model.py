@@ -35,7 +35,8 @@ class Writing(SQLModel, table=True):
     unrecommend: int = Field(default=0)
 
     content: str
-    image_link: str = Field(default=None)
+    link: str = Field(default=None)
+    link_type: str = Field(default=None)
     chat_ids: str = Field(default="")
 
 
