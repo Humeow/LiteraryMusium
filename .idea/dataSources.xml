@@ -23,25 +23,11 @@
       <jdbc-url>jdbc:mariadb://125.141.95.127:6603/LiteracyMusium</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="postgres@localhost" uuid="229671c7-049c-4305-9c33-312fc3625217">
-      <driver-ref>postgresql</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/postgres</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
     <data-source source="LOCAL" name="literacy_musium@172.30.1.2" uuid="6ef7e5a8-de75-4abd-a55a-56c69dfff952">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://172.30.1.2:54333/literacy_musium</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="svc.sel4.cloudtype.app:31499" uuid="5977eece-c038-456b-8f62-1955df2d7ac5">
-      <driver-ref>postgresql</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://svc.sel4.cloudtype.app:31499/postgres</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
     <data-source source="LOCAL" name="127.141.95.127" uuid="0a03be71-a1a0-477b-8206-aaba6fdd8fb2">

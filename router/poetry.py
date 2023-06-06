@@ -34,8 +34,6 @@ async def show_writing(request: Request, gallery, writing_id):
 
         statement = select(Writing).where(Writing.id == writing_id).where(Writing.gallery == gallery)
 
-        print(statement)
-
         results = session.exec(statement)
 
         resFetch = results.first()
