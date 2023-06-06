@@ -92,8 +92,21 @@ async def print_main(request: Request):
 
 @router.post("/recommend", response_class=RedirectResponse, status_code=302)
 async def recommend_writing(request: Request, is_recommendation: int = Form(), writing_id: int = Form(), gallery: str = Form()):
+    with Session(engine) as session:
+        statement = select(Writing).where(Writing.id == writing_id).where(Writing.gallery == gallery)
+        results = session.exec(statement).one()
 
-    return f"/gallery/{gallery}/1"
+        if is_recommendation:
+            results.recommend += 1
+
+        else:
+            results.unrecommend += 1
+
+        session.add(results)
+        session.commit()
+        session.refresh(results)
+
+    return f"/gallery/{gallery}/{writing_id}"
 
 
 @router.post("/write")
