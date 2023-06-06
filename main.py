@@ -1,7 +1,7 @@
 from typing import Optional
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 from fastapi import FastAPI, Request
-from fastapi.responses import FileResponse, RedirectResponse
+from fastapi.responses import FileResponse, RedirectResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 
 from fastapi.templating import Jinja2Templates
@@ -67,6 +67,11 @@ async def main(request: Request):
 async def favicon():
     favicon_path = 'favicon.ico'
     return FileResponse(favicon_path)
+
+
+@app.get('/document_diminside', response_class=HTMLResponse)
+async def deny_document_diminside(request: Request):
+    return templates.TemplateResponse("deny_document_diminside.html", {"request": request})
 
 
 if __name__ == "__main__":
