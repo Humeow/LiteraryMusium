@@ -28,6 +28,9 @@ async def show_writing(request: Request, writing_id: int = Form(), name: str = F
 
         if resFetch is not None:
             now = datetime.datetime.now()
+
+            print(f"!!!{request.client}!!!")
+
             reply_inform = Replys(
                 name=name, ip=".".join(request.client.host.split(".")[:2]), password=hash_funcs.hash_make(password),
                 context=content, date=now.strftime('%m.%d %H:%M:%S'), writing_id=writing_id

@@ -21,8 +21,10 @@ DATABASE = {
 #     #url = f"postgresql://humeow0223:{password}@diminside.humeow.xyz:54323/literacy_musium"
 #     url = f"postgresql://humeow0223:{password}@127.141.95.127:54323/literacy_musium"
 
-if os.environ.get('isDevelop'):
+if os.environ.get('isDevelop') == 'true':
     url = f"postgresql://humeow0223:{password}@172.30.1.2:54333/literacy_musium"
+elif os.environ.get('isDevelop') == 'dev':
+    f"postgresql://humeow0223:{password}@localhost:54333/literacy_musium"
 else:
     url = f"postgresql://humeow0223:{password}@localhost:54333/literacy_musium"
 
