@@ -7,8 +7,8 @@ password = os.environ.get('LiteraryMusium_DBPW')
 
 DATABASE = {
     'drivername': 'mysql',
-    'host': '125.141.95.127',
-    'port': '6603',
+    'host': '172.30.1.2',
+    'port': '54333',
     'username': "humeow",
     'password': 'abcdefg0223',
     'query': {'charset': 'utf8'}
@@ -27,6 +27,8 @@ elif os.environ.get('isDevelop') == 'dev':
     f"postgresql://humeow0223:{password}@localhost:54333/literacy_musium"
 else:
     url = f"postgresql://humeow0223:{password}@localhost:54333/literacy_musium"
+
+print(url)
 
 engine = create_engine(
     url,
